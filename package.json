@@ -1,0 +1,32 @@
+{
+  "name": "farmoportal",
+  "version": "0.0.1",
+  "description": "Farm-O-Portal",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nirmaln/farmoportal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "moment": "^2.10.3",
+    "mongoose": "3.8.23",
+    "express": "^4.10.1",
+    "express-jwt": "^1.0.0",
+    "body-parser": "^1.9.2",
+    "jsonwebtoken": "^3.2.2",
+    "q": "1.4.1",
+    "cors": "^2.5.2",
+    "winston": "1.1.2"
+  },
+  "bugs": {
+    "url": "https://github.com/nirmaln/farmoportal/issues"
+  },
+  "homepage": "https://github.com/nirmaln/farmoportal#readme"
+}

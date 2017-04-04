@@ -1,0 +1,15 @@
+{
+  "mongo": {
+    "db_name": "farmoportal",
+    "ip": "127.0.0.1",
+    "port": 27017,
+    "username": "",
+    "password": ""
+  },
+  "ui": {
+    "http_port": 8454,
+    "ip": "localhost"
+  },
+  "logDirectory": "../../logs",
+  "passwordExpireDays" : 180
+}
