@@ -21,7 +21,7 @@ exports.login = function (req, res) {
 
     if (systemStatus.getStatus().MongoDB.status === false) {
         Logger.warn('Could not connect to Mongo DB');
-        res.status(401).send('Could not connect to Database !! Please try again later');
+        res.status(401).send('Unknown Error !!! Please try again later');
     }
     else {
         User.count({}, function (err, count) {

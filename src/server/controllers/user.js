@@ -5,14 +5,10 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     constants = require('../utils/constants'),
     encUtil = require('../utils/encutil'),
+    Logger = require('../utils/logger'),
     Q = require('q');
 
 exports.create = function (req, res) {
-    var userName;
-    if (req.hasOwnProperty('user')) {
-        userName = req.user.username;
-    }
-
     var user = new User(req.body);
 
     encUtil.hash(req.body.password)
@@ -27,16 +23,13 @@ exports.create = function (req, res) {
 
                 user.save(function (err) {
                     if (err) {
+                        Logger.warn('Failed to add new user' + JSON.stringify(err));
                         res.status(500).json({
                             error: 'Cannot save the user'
                         });
                     }
                     else {
-                        User.count({}, function (err, count) {
-                            if (count === 1) {
-
-                            }
-                        });
+                        Logger.info('Successfully added new user : ' + JSON.stringify(user));
                         res.json({name: user.name, rolename: user.rolename});
                     }
                 });
@@ -148,8 +141,6 @@ exports.destroy = function (req, res) {
                 if (err) {
                     return res.status(500).json({error: 'Cannot delete the users'});
                 }
-                audit.writeLog(userName, constants.Audit_Types.USER_SETTINGS_CHANGE, null, null, null,
-                    'Deleted users \'' + JSON.stringify(users) + '\'');
                 res.json(users);
             });
         }

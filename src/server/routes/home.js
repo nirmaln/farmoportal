@@ -1,6 +1,7 @@
 'use strict';
 
 var systemStatus = require('../utils/systemStatus'),
+    u = require('../controllers/user'),
     versionInfo = require('../utils/versionInfo');
 
 
@@ -9,7 +10,7 @@ module.exports = function (router) {
     /**  Base url for FP REST API server. */
     router.get('/', function (req, res) {
         res.json({
-            message: 'FarmOPoratal Server REST API'
+            message: 'FarmOPortal Server REST API'
         });
     });
 
@@ -35,6 +36,8 @@ module.exports = function (router) {
             message: 'FarmOPoratal Server REST API -- Version 1'
         });
     });
+
+    router.post('/v1/register',u.create);
 
     return router;
 };

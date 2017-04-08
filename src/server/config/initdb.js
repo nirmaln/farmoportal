@@ -14,17 +14,17 @@ var mongoose = require('mongoose'),
 module.exports = function () {
 
     Permission.remove(function () {
-        Logger.info('Adding Permissions Mock Data...');
+        //Logger.info('Adding Permissions Mock Data...');
         Permission.create(mockData.Permission());
     });
 
     Role.remove(function () {
-        Logger.info('Adding Roles Mock Data...');
+       // Logger.info('Adding Roles Mock Data...');
         Role.create(mockData.Role());
     });
 
     SuperUser.remove(function () {
-        Logger.info('Adding Super User Mock Data...');
+       // Logger.info('Adding Super User Mock Data...');
         SuperUser.create(mockData.SuperUser());
     });
 

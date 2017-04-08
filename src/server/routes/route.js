@@ -23,7 +23,7 @@ module.exports = function(router) {
         .delete(r.destroy);
 
     router.route('/user/')
-        .post(u.create)
+        //.post(u.create)
         .get(u.all)
         .put(u.update);
 

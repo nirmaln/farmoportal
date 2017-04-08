@@ -4,25 +4,48 @@ var mongoose = require("mongoose"),
     Schema = mongoose.Schema,
     Role = mongoose.model('Role');
 
+
 var UserSchema = new Schema({
     name: {
         type: String,
+        required: true
+    },
+    email: {
+        type: String,
         required: true,
         unique: true
+    },
+    phone: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    country : {
+        type: String,
+        default : "India"
+    },
+    birthDate : {
+        type: String,
+        required: true
+    },
+    gender : {
+        type : String
     },
     password: {
         type: String,
         required: true
     },
     seed: {
-        type: String,
-        required: true
+        type: String
     },
     key: {
-        type: String,
-        required: true
+        type: String
     },
     rolename: {
+        type: String,
+        default : "All"
+    },
+    emailId : {
         type: String,
         required: true
     },
@@ -32,28 +55,5 @@ var UserSchema = new Schema({
     }
 });
 
-UserSchema.statics.getUser = function (query, cb) {
-    this.findOne(query, function (err, u) {
-        if (err || u === null) {
-            cb(err);
-        }
-        else {
-            Role.findOne({name: u.rolename}, function (err, r) {
-                if (err || r === null)
-                    cb(err);
-                else {
-                    u.permissions = r.permissions;
-                    cb(null, u);
-                }
-            })
-        }
-    });
-};
-
-UserSchema.statics.getUserPromise = function (query) {
-    return this.findOne(query).exec().then(function (user) {
-        return Role.findOne({name: user.rolename}).exec();
-    });
-};
 
 mongoose.model('User', UserSchema);

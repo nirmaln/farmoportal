@@ -64,14 +64,14 @@ require('./config/express')(app);
 
 Logger.info('Configuring Express Routes..');
 var router = express.Router();
-app.use('/bcs/api/', require('./routes/home')(router));
+app.use('/fp/api/', require('./routes/home')(router));
 
 var auth = require('./config/auth');
 auth.init(app, router);
 
 app.listen(port, fpConfig.ui.ip);
 
-Logger.info('BCS server listening on ' + fpConfig.ui.ip + ':' + port);
+Logger.info('FarmOPortal server listening on ' + fpConfig.ui.ip + ':' + port);
 
 
 module.exports = app;
