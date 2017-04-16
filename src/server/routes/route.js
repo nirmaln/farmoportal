@@ -24,11 +24,11 @@ module.exports = function(router) {
 
     router.route('/user/')
         //.post(u.create)
-        .get(u.all)
+        //.get(u.all)
         .put(u.update);
 
-    router.route('/user/:users')
-        .post(u.destroy);
+    //router.route('/user/:users')
+    //    .post(u.destroy);
 
     router.route('/login')
         .post(a.login);

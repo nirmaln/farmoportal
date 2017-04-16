@@ -1,4 +1,5 @@
 'use strict';
+var constants = require('../utils/constants');
 
 module.exports.Permission = function () {
     return [
@@ -12,11 +13,11 @@ module.exports.Permission = function () {
 module.exports.Role = function () {
     return [
         {
-            name: 'root',
+            name: constants.FP_Roles.ROOT,
             permissions: ['User Administration']
         },
         {
-            name: 'admin',
+            name: constants.FP_Roles.ADMIN,
             permissions: [
                 'Permission1',
                 'Permission2',
@@ -25,7 +26,7 @@ module.exports.Role = function () {
             ]
         },
         {
-            name: 'Role1',
+            name: constants.FP_Roles.SUPPLIER,
             permissions: [
                 'Permission1',
                 'Permission2',
@@ -34,7 +35,14 @@ module.exports.Role = function () {
             ]
         },
         {
-            name: 'Role2',
+            name: constants.FP_Roles.PRODUCER,
+            permissions: [
+                'Permission1',
+                'Permission2'
+            ]
+        },
+        {
+            name: constants.FP_Roles.ALL,
             permissions: [
                 'Permission1',
                 'Permission2'

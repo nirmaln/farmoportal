@@ -11,5 +11,6 @@
     "ip": "localhost"
   },
   "logDirectory": "../../logs",
-  "passwordExpireDays" : 180
+  "passwordExpireDays" : 360,
+  "resetRootUser" : false
 }

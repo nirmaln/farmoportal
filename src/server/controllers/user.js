@@ -30,7 +30,7 @@ exports.create = function (req, res) {
                     }
                     else {
                         Logger.info('Successfully added new user : ' + JSON.stringify(user));
-                        res.json({name: user.name, rolename: user.rolename});
+                        res.json({name: user.loginName, rolename: user.rolename});
                     }
                 });
             });
@@ -46,7 +46,7 @@ function saveUser(savedByUser, user, res, userDiff) {
             });
         }
         else {
-            res.json({name: user.name, rolename: user.rolename});
+            res.json({name: user.loginName, rolename: user.rolename});
         }
     });
 }
@@ -104,59 +104,41 @@ function updateUser(user, updatedByUser, res) {
     });
 }
 
-
-
 exports.update = function (req, res) {
     var user = req.body;
     var userName;
     if (req.hasOwnProperty('user')) {
-        userName = req.user.username;
+        userName = req.user.loginName;
     }
 
     updateUser(user, userName, res);
 };
 
+//exports.destroy = function (req, res) {
+//
+//    var userName;
+//    if (req.hasOwnProperty('user')) {
+//        userName = req.user.loginName;
+//    }
+//    User.remove({name: userName}, function(err) {
+//        if (err) {
+//            return res.status(500).json({error: 'Cannot delete the users'});
+//        }
+//        res.json(users);
+//    });
+//
+//};
 
-function canDestroy(users) {
-    return (users && users.length > 0 && _.some(users, {'rolename': 'admin'}));
-}
-
-
-exports.destroy = function (req, res) {
-    var users = req.params.users.trim().split(",");
-    var userName;
-    if (req.hasOwnProperty('user')) {
-        userName = req.user.username;
-    }
-
-    User.
-    find({name: {$nin: users}}).
-    select('-_id -__v -key -seed -password').
-    exec(function (err, retUsers) {
-        if (err || !canDestroy(retUsers)) {
-            return res.status(500).json({error: 'Attempted to remove all users with admin role'});
-        }
-        else {
-            User.remove({name: {$in: users}}, function(err) {
-                if (err) {
-                    return res.status(500).json({error: 'Cannot delete the users'});
-                }
-                res.json(users);
-            });
-        }
-    });
-};
-
-exports.all = function (req, res) {
-    User.
-    find().
-    select('-_id -__v -key -seed -password').
-    exec(function (err, users) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Cannot list the users'
-            });
-        }
-        res.json(users);
-    });
-};
+//exports.all = function (req, res) {
+//    User.
+//    find().
+//    select('-_id -__v -key -seed -password').
+//    exec(function (err, users) {
+//        if (err) {
+//            return res.status(500).json({
+//                error: 'Cannot list the users'
+//            });
+//        }
+//        res.json(users);
+//    });
+//};

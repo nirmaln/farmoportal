@@ -6,6 +6,8 @@ module.exports = {
     }),
 
     FP_Roles : Object.freeze({
+        ROOT : "Root", //only for user administration
+        ADMIN : "Admin", //only for user administration
         SUPPLIER: "Supplier",
         PRODUCER : "Producer",
         ALL : "All"

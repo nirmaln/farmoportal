@@ -4,21 +4,23 @@ var mongoose = require("mongoose"),
     Schema = mongoose.Schema,
     Role = mongoose.model('Role');
 
-
 var UserSchema = new Schema({
+    loginName : {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     phone: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     country : {
         type: String,

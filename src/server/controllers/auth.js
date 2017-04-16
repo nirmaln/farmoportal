@@ -17,28 +17,22 @@ var secret = 'cskTeamEntry@2018';
 
 exports.login = function (req, res) {
 
-    Logger.info('Request for login from ' + req.body.username);
+    Logger.info('Request for login from ' + req.body.loginName);
 
     if (systemStatus.getStatus().MongoDB.status === false) {
         Logger.warn('Could not connect to Mongo DB');
         res.status(401).send('Unknown Error !!! Please try again later');
     }
     else {
-        User.count({}, function (err, count) {
-            if (count === 0) {
-                findUser(SuperUser, req, res);
-            }
-            else {
-                findUser(User, req, res);
-            }
-        });
+        findUser(User, req, res);
     }
 };
 
 function findUser(userModel, req, res) {
-    userModel.findOne({name: req.body.username}).exec()
+    userModel.findOne({loginName: req.body.loginName}).exec()
         .then(function (user) {
             if (user === null) {
+                Logger.info('User name : ' + req.body.loginName + 'does not exist');
                 throw 'User name does not exist';
             }
             else {
@@ -64,8 +58,8 @@ function findUser(userModel, req, res) {
             var profile;
             if(role.passwordExpired === true) {
                 profile = {
-                    username: req.body.username,
-                    token: req.body.username + 'securetoken',
+                    username: req.body.loginName,
+                    token: req.body.loginName + 'securetoken',
                     loginType: 'StandardLogin',
                     permissions: ['Password Expired'],
                     roleName: 'Password Expired'
@@ -73,9 +67,8 @@ function findUser(userModel, req, res) {
             }
             else {
                 profile = {
-                    username: req.body.username,
-                    token: req.body.username + 'securetoken',
-                    loginType: 'StandardLogin',
+                    username: req.body.loginName,
+                    token: req.body.loginName + 'securetoken',
                     permissions: role.permissions,
                     roleName: role.name
                 };
@@ -92,7 +85,7 @@ function findUser(userModel, req, res) {
 
 
 exports.logout = function (req, res) {
-    Logger.info('request for logout from user :' + req.body.username);
+    Logger.info('request for logout from user :' + req.body.loginName);
     res.json({
         message: 'logged out successfully'
     });

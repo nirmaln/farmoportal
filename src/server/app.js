@@ -44,10 +44,8 @@ require('./models/role');
 require('./models/user');
 require('./models/superuser');
 
-if (_.contains(['development', 'production'], fpConfig.NODE_ENV)) {
-    Logger.info('Adding mock data to Mongo DB');
-    require('./config/initdb')();
-}
+Logger.info('Adding mock data to Mongo DB');
+require('./config/initdb')();
 
 // Delete existing users if 'resetRootUser' flag is set to true
 if (_.contains(['development', 'production'], fpConfig.NODE_ENV) && (fpConfig.resetRootUser === true)) {
@@ -72,6 +70,5 @@ auth.init(app, router);
 app.listen(port, fpConfig.ui.ip);
 
 Logger.info('FarmOPortal server listening on ' + fpConfig.ui.ip + ':' + port);
-
 
 module.exports = app;
